@@ -52,8 +52,17 @@ public class Employe extends Utilisateur  {
         this.tel = tel;
         this.salaire=salaire;
     }
+    
 
-    public Employe() {
+    public Employe(int cin, String nom, String prenom, String adresse, String login, String mdp, Date dateNaiss,
+			int tel, double salaire, Dossier dossier) {
+		super(cin, nom, prenom, adresse, login, mdp, dateNaiss, tel);
+		this.salaire = salaire;
+		this.dossier = dossier;
+	}
+
+
+	public Employe() {
 
     }
 

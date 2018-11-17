@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
+
 public class ContratService {
 
     private final ContratRepository contratRepository;

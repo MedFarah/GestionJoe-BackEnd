@@ -12,6 +12,7 @@ import com.joes.gestion.entity.DemandeConge;
 
 @Service
 @Transactional
+
 public class DemandeCongeService {
 
 	private final DemandeCongeRepository demandecongeRepository;

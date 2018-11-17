@@ -13,6 +13,7 @@ import com.joes.gestion.entity.Conge;
 
 @Service
 @Transactional
+
 public class CongeService {
 
 	private final CongeRepository congeRepository;
