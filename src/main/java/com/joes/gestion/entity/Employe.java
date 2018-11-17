@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Employe extends Utilisateur  {
     private TypePost typePost;
 
     @OneToMany(mappedBy="employe",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<Contrat> contrat;
+    private List<Contrat> contrats;
 
     @OneToMany( mappedBy = "employe",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private List<Conge> conges;
@@ -62,6 +63,15 @@ public class Employe extends Utilisateur  {
 	}
 
 
+	public Employe(int cin, String nom, String prenom, String adresse, String login, String mdp, Date dateNaiss,
+			int tel, double salaire, TypePost typePost) {
+		super(cin, nom, prenom, adresse, login, mdp, dateNaiss, tel);
+		this.salaire = salaire;
+		//this.dossier = dossier;
+		this.typePost = typePost;
+	}
+
+
 	public Employe() {
 
     }
@@ -74,12 +84,26 @@ public class Employe extends Utilisateur  {
         this.typePost = typePost;
     }
 
-    public List<Contrat> getContrat() {
-        return contrat;
+   
+    public List<Contrat> getContrats() {
+        if (contrats == null) {
+            contrats = new ArrayList<>();
+        }
+        return this.contrats;
     }
 
-    public void setContrat(List<Contrat> contrat) {
-        this.contrat = contrat;
+    public void setContrats(List<Contrat> contrats) {
+        this.contrats = contrats;
+    }
+
+    public void addContrat(Contrat contrat) {
+        getContrats().add(contrat);
+        contrat.setEmploye(this);
+    }
+
+    public void removeContrat(Contrat contrat) {
+        getContrats().remove(contrat);
+        contrat.setEmploye(null);
     }
 
     @JsonIgnore
@@ -171,4 +195,25 @@ public class Employe extends Utilisateur  {
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+	 public List<Conge> getConges() {
+	        if (conges == null) {
+	            conges = new ArrayList<>();
+	        }
+	        return this.conges;
+	    }
+
+	    public void setConges(List<Conge> conges) {
+	        this.conges = conges;
+	    }
+
+	    public void addConge(Conge conge) {
+	        getConges().add(conge);
+	        conge.setEmployee(this);
+	    }
+
+	    public void removeConge(Conge conge) {
+	        getConges().remove(conge);
+	        conge.setEmployee(null);
+	    }
 }

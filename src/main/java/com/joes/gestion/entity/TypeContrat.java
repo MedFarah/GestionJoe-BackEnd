@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,8 @@ public class TypeContrat implements Serializable{
     //@JsonIgnore
     private List<Contrat> contrats;
 
-    public TypeContrat(int idC, String descriptionC) {
-        this.idC = idC;
+    public TypeContrat( String descriptionC) {
+      //  this.idC = idC;
         this.descriptionC = descriptionC;
     }
 
@@ -29,13 +30,26 @@ public class TypeContrat implements Serializable{
     }
 
     public List<Contrat> getContrats() {
-        return contrats;
+        if (contrats == null) {
+        	contrats = new ArrayList<>();
+        }
+        return this.contrats;
     }
 
     public void setContrats(List<Contrat> contrats) {
         this.contrats = contrats;
     }
 
+    public void addContrat(Contrat contrat) {
+        getContrats().add(contrat);
+        contrat.setTypeContrat(this);
+    }
+
+    public void removeContrat(Contrat contrat) {
+        getContrats().remove(contrat);
+        contrat.setTypeContrat(null);
+   
+    }
     public int getIdC() {
         return idC;
     }

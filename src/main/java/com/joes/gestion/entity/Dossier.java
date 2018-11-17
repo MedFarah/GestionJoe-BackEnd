@@ -35,7 +35,19 @@ public class Dossier implements Serializable {
         this.etatDossier = etatDossier;
     }
 
-    public Dossier() {
+    public Dossier(int coded, Boolean b3, Boolean cnss, Boolean diplome, Boolean copieCarteCin, Boolean etatDossier,
+			Employe employe) {
+		super();
+		this.coded = coded;
+		this.b3 = b3;
+		this.cnss = cnss;
+		this.diplome = diplome;
+		this.copieCarteCin = copieCarteCin;
+		this.etatDossier = etatDossier;
+		this.employe = employe;
+	}
+
+	public Dossier() {
     }
 
     public Employe getEmploye() {

@@ -3,6 +3,8 @@ package com.joes.gestion.service;
 import com.joes.gestion.dao.EmployeRepository;
 import com.joes.gestion.entity.Dossier;
 import com.joes.gestion.entity.Employe;
+import com.joes.gestion.entity.TypePost;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ public class EmployeService {
     private final EmployeRepository employeRepository;
     @Autowired
     private DossierService dossierService;
+    @Autowired
+    private TypePostService typepostservice;
 
     @Autowired
     public EmployeService(EmployeRepository employeRepository) {
@@ -33,12 +37,15 @@ public class EmployeService {
     }
 
     public Employe addEmploye(Employe employe){
-    	Dossier d =dossierService.find(employe.getDossier().getCoded());
+    	//Dossier d =dossierService.find(employe.getDossier().getCoded());
     	
     	 // e.setDossier(d);
+    	TypePost p= typepostservice.find(employe.getTypePost().getDescription());
+    	p.addEmploye(employe);
     	employeRepository.save(employe);
-  		 d.setEmploye(employe);
-  		 dossierService.update(d.getCoded(),d);
+    	typepostservice.update(p.getId(),p);
+  		// d.setEmploye(employe);
+  		// dossierService.update(d.getCoded(),d);
     	
         return employe;
     }

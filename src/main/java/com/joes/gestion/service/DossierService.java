@@ -2,6 +2,8 @@ package com.joes.gestion.service;
 
 import com.joes.gestion.dao.DossierRepository;
 import com.joes.gestion.entity.Dossier;
+import com.joes.gestion.entity.Employe;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,9 @@ import java.util.List;
 
 public class DossierService {
     private final DossierRepository dossierRepository;
+    @Autowired
+    private EmployeService employeService ;
+    
 
     @Autowired
     public DossierService(DossierRepository dossierRepository) {
@@ -39,8 +44,15 @@ public class DossierService {
 
     public Dossier save(Dossier d) {
 
-
-        return dossierRepository.save(d);
+    	
+    	Employe e =  employeService.findEmployeById(d.getEmploye().cin);
+    	
+    	e.setDossier(d);
+    	dossierRepository.save(d);
+    	employeService.updateEmploye(e, e.cin);
+    	
+    	
+        return d;
     }
 
     public void delete (int d) {

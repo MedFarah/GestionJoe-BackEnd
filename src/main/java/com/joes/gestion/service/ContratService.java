@@ -2,10 +2,14 @@ package com.joes.gestion.service;
 
 import com.joes.gestion.dao.ContratRepository;
 import com.joes.gestion.entity.Contrat;
+import com.joes.gestion.entity.Employe;
+import com.joes.gestion.entity.TypeContrat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +18,10 @@ import java.util.List;
 @Transactional
 
 public class ContratService {
+	  @Autowired
+	EmployeService employeService;
+	  @Autowired
+	  TypeContratService typecontratService;
 
     private final ContratRepository contratRepository;
 
@@ -41,8 +49,20 @@ public class ContratService {
 
 
     public Contrat save( Contrat c) {
+    	
+    	TypeContrat tc=typecontratService.find(c.getTypeContrat().getDescriptionC());
+    	tc.addContrat(c);
+  
+    	contratRepository.save(c);
+    	typecontratService.update(tc.getIdC(), tc);
+    	Employe e= employeService.findEmployeById(c.getEmploye().cin);
+    	e.addContrat(c);
+    	employeService.updateEmploye(e, e.cin) ;  	
+    	
+    	
+    	
 
-        return contratRepository.save(c);
+        return c;
     }
 
     public void delete (int c) {

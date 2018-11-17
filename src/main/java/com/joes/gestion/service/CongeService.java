@@ -1,6 +1,7 @@
 package com.joes.gestion.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.joes.gestion.dao.CongeRepository;
 import com.joes.gestion.entity.Conge;
+import com.joes.gestion.entity.Contrat;
+import com.joes.gestion.entity.Employe;
 
 
 @Service
@@ -17,6 +20,8 @@ import com.joes.gestion.entity.Conge;
 public class CongeService {
 
 	private final CongeRepository congeRepository;
+	@Autowired
+	private EmployeService employeSerivce;
 
 	@Autowired
 	public CongeService(CongeRepository congeRepository) {
@@ -39,8 +44,16 @@ public class CongeService {
 
 
     public Conge save( Conge c) {
+    	
+    	congeRepository.save(c);
+    	Employe e= employeSerivce.findEmployeById(c.getEmployee().cin);
+    	e.addConge(c);
+    	employeSerivce.updateEmploye(e, e.cin) ;  	
+    	
+    	
+    	return c;
 
-        return congeRepository.save(c);
+
     }
 
     public void delete (int c) {

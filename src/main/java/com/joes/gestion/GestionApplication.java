@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.joes.gestion.entity.Dossier;
 import com.joes.gestion.entity.Employe;
+import com.joes.gestion.entity.TypePost;
 import com.joes.gestion.service.DossierService;
 import com.joes.gestion.service.EmployeService;
 
@@ -29,16 +30,24 @@ public class GestionApplication implements CommandLineRunner{
     }
 	@Override
 	public void run(String... args) throws Exception {
-	/*	Date date =new Date();
+		/*Date date =new Date();
 		
-		Dossier d= new Dossier(4,true ,true,true,true,true);
-		Employe e =new Employe(4, "sahar", "sahar", "sahar", "sahar", "sahar", date, 1111,5555 );
-		dossierService.save(d);
-		Dossier d2 =dossierService.find(d.getCoded());
-         e.setDossier(d2);
+		Dossier d= new Dossier(5,true ,true,true,true,true);
+		TypePost p= new TypePost("bla");
+		Employe e =new Employe(5, "sahar", "sahar", "sahar", "sahar", "sahar", date, 1111,5555,p );
+		d.setEmploye(e);
+		
 		employeService.addEmploye(e);
-		 d2.setEmploye(e);
-		 dossierService.update(4, d2);*/
+		dossierService.save(d);
+		*/
+         
+         
+         
+
+		
+		 
+		 
+		
 		 
 		
 		
